@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/Xudmud/CSCI3916_HW4/issues"
   },
-  "homepage": "https://github.com/Xudmud/CSCI3916_HW4#readme"
+  "homepage": "https://github.com/Xudmud/CSCI3916_HW4#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.22",
+    "npm": "^6.9.0",
+    "passport": "^0.4.0"
+  }
 }
