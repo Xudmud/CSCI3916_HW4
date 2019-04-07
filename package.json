@@ -1,0 +1,19 @@
+{
+  "name": "csci3916_hw4",
+  "version": "1.0.0",
+  "description": "CSCI 3916 Homework 4: Reviews and Google Analytics",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xudmud/CSCI3916_HW4.git"
+  },
+  "author": "Gregory Wicklund",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xudmud/CSCI3916_HW4/issues"
+  },
+  "homepage": "https://github.com/Xudmud/CSCI3916_HW4#readme"
+}
