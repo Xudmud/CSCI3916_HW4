@@ -2,11 +2,7 @@
   "name": "csci3916_hw4",
   "version": "1.0.0",
   "description": "CSCI 3916 Homework 4: Reviews",
-<<<<<<< HEAD
   "main": "app.js",
-=======
-  "main": "server.js",
->>>>>>> 0552778805b32d225b7ce1201383ec572ec3ad5f
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
