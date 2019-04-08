@@ -9,8 +9,8 @@ mongoose.set('useCreateIndex', true);
 //review schema
 //Need to know which userID left the review and which movieID it is.
 //userID is extracted from the JWT token, then passed in...?
-var ReviewSchema = new Schema {
+var ReviewSchema = new Schema ({
     user: Object,
     movie: Object,
     Review: String
-}
+});
