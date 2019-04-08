@@ -1,11 +1,10 @@
 {
   "name": "csci3916_hw4",
   "version": "1.0.0",
-  "description": "CSCI 3916 Homework 4: Reviews and Google Analytics",
+  "description": "CSCI 3916 Homework 4: Reviews",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,6 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22",
-    "npm": "^6.9.0",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.0"
