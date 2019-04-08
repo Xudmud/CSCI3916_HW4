@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 mongoose.connect(process.env.db, {useNewUrlParser: true});
-mongoose.set('useCreateIndex': true);
+mongoose.set('useCreateIndex', true);
 
 //review schema
 //Need to know which userID left the review and which movieID it is.
