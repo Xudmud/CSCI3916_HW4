@@ -114,3 +114,6 @@ router.route('/postjwt')
             console.log(req.body);
             res.status(405).send({success: false, msg: 'Unsupported method.'});
         });
+
+app.use('/', router);
+app.listen(process.env.PORT || 8080);
