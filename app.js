@@ -210,7 +210,7 @@ router.route('/postjwt')
         let mid = req.body.movieId;
         Movie.findById(mid, function(err, mid) {
             if(err) {
-                res.status(404).send({success: faslse, message: 'Movie not found.'});
+                res.status(404).send({success: false, message: 'Movie not found.'});
             }
             else if(mid) {
                 let review = new Review();
@@ -221,7 +221,7 @@ router.route('/postjwt')
                 res.json(review);
                 review.save(function(err) {
                     if(err) {
-                        res.status(400).send({success: faslse, message: 'Some required fields not entered!'});
+                        res.status(400).send({success: false, message: 'Some required fields not entered!'});
                     } else {
                         res.json({success: true, message: 'Review added successfully!'});
                     }
