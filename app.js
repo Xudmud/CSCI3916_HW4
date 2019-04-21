@@ -218,7 +218,7 @@ router.route('/postjwt')
                 review.review = req.body.review;
                 review.rating = req.body.rating;
                 review.movie = req.body.movieId;
-
+                res.json(review);
                 review.save(function(err) {
                     if(err) {
                         res.status(400).send({success: faslse, message: 'Some required fields not entered!'});
