@@ -10,7 +10,7 @@ mongoose.set('useCreateIndex', true);
 //Need to know which userID left the review and which movieID it is.
 //userID is extracted from the JWT token, then passed in...?
 var ReviewSchema = new Schema ({
-    user: {type: Schema.Types.ObjectID, ref: "User", required: true},
+    user: {type: Schema.Types.ObjectId, ref: "User", required: true},
     rating: {type: Number, min:0, max: 5, required: true},
     review: {type: String, required: true},
     movie: {type: Schema.Types.ObjectId, ref: "Movie", required: true},
