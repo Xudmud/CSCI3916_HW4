@@ -228,7 +228,7 @@ router.route('/postjwt')
                 })
             }
             else {
-                res.status(500).send({success: false, message: 'Unknown error.'});
+                res.json(err);
             }
         })
     })
