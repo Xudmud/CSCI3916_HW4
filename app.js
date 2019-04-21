@@ -213,7 +213,7 @@ router.route('/postjwt')
                 res.status(404).send({success: false, message: 'Movie not found.'});
             }
             else if(mid) {
-                let review = new ReviewSchema();
+                let review = new Review();
                 review.user = decoded.username;
                 review.review = req.body.review;
                 review.rating = req.body.rating;
