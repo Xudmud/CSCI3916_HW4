@@ -207,6 +207,7 @@ router.route('/postjwt')
         let utoken = req.headers.authorization;
         let token = utoken.split(' ');
         let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
+        console.log(decoded);
         let mid = req.body.movieId;
         Movie.findById(mid, function(err, mid) {
             if(err) {
