@@ -11,6 +11,9 @@ mongoose.set('useCreateIndex', true);
 //userID is extracted from the JWT token, then passed in...?
 var ReviewSchema = new Schema ({
     user: Object,
-    movie: Object,
-    Review: String
+    rating: {type: Number, min:0, max: 5, required: true},
+    movie: {type: mongoose.types.ObjectId, required: true},
+    review: {type: String, required: true}
 });
+
+mongoose.exports = mongoose.model('Review',ReviewSchema);
