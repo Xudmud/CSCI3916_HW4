@@ -116,6 +116,40 @@ router.route('/postjwt')
             console.log(req.body);
             res.status(405).send({success: false, msg: 'Unsupported method.'});
         });
+    router.route('/reviews')
+        .post(authJwtController.isAuthenticated, function(req, res) {
+        let utoken = req.headers.authorization;
+        let token = utoken.split(' ');
+        let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
+        let mid = req.body.movieId;
+        Movie.findById(mid, function(err, something) {
+            if(err) {
+                res.status(404).send({success: faslse, message: 'Movie not found.'});
+            }
+            else if(something) {
+                let review = new Review();
+                review.name = decoded.username;
+                review.review = req.body.review;
+                review.rating = req.body.rating;
+                review.mid = req.body.movieId;
+
+                review.save(function(err) {
+                    if(err) {
+                        res.status(400).send({success: faslse, message: 'Some required fields not entered!'});
+                    } else {
+                        res.json({success: true, message: 'Review added successfully!'});
+                    }
+                })
+            }
+            else {
+                res.status(500).send({success: false, message: 'Unknown error.'});
+            }
+        })
+    })
+    .all(function(req, res) {
+        console.log(req.body);
+        res.status(405).send({succes: false, msg: 'Unsupported method.'});
+    })
 
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
