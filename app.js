@@ -208,11 +208,11 @@ router.route('/postjwt')
         let token = utoken.split(' ');
         let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
         let mid = req.body.movieId;
-        Movie.findById(mid, function(err, something) {
+        Movie.findById(mid, function(err, mid) {
             if(err) {
                 res.status(404).send({success: faslse, message: 'Movie not found.'});
             }
-            else if(something) {
+            else if(mid) {
                 let review = new Review();
                 review.user = decoded.username;
                 review.review = req.body.review;
