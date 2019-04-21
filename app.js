@@ -3,6 +3,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var authJwtController = require('./auth_jwt');
+var jwt = require('jsonwebtoken')
 var User = require('./Users');
 var Movie = require('./Movies');
 var Review = require('./Reviews');
@@ -116,6 +117,91 @@ router.route('/postjwt')
             console.log(req.body);
             res.status(405).send({success: false, msg: 'Unsupported method.'});
         });
+
+    router.route('/movies')
+        //Movie stuff goes here.
+        //Need extra check for showing reviews
+        .post(authJwtController.isAuthenticated, function (req, res) {
+        console.log(req.body);
+        if(!req.body.title || !req.body.year || req.body.actor.length < 3)
+            res.json({success: false, msg: 'Please include all required fields!'});
+        else {
+            var movieNew = new Movie();
+            movieNew.title = req.body.title;
+            movieNew.year = req.body.year;
+            movieNew.genre = req.body.genre;
+            movieNew.actor = req.body.actor;
+
+            //Not checking for duplicates, might be multiple movies with the same title.
+            movieNew.save(function(err) {
+                if(err) {
+                    return(res.send(err));
+                }
+                res.json({success: true, msg: 'Successfully created movie!'})
+            });
+        }
+    })
+
+    .put(authJwtController.isAuthenticated, function (req, res, next) {
+        //Validate input. Require all four fields.
+        if(!req.body.title || !req.body.year || !req.body.genre || !req.body.actor) {
+            return(next(res.status(400).send({success: false, msg:'Please include all required fields!'})));
+        }
+        //Double-check length of actor array
+        if(req.body.actor.length < 3)
+            return(next(res.status(400).send({success: false, msg:'Please include at least three actors!'})));
+        Movie.findOneAndUpdate(
+            {"title": req.body.title},
+            {
+                $set: {
+                    "year": req.body.year,
+                    "genre": req.body.genre,
+                    "actor": req.body.actor
+                }
+            },
+            {new: true},
+            (err, data) => {
+                if(err) res.status(404).send({success: false, msg: 'Movie not found.'});
+            });
+            res.json({success: true, msg: 'Movie updated'});
+    })
+
+
+    .delete(authJwtController.isAuthenticated, function (req, res) {
+        //Receives: title to be deleted.
+        //Weakness: This will find the first instance and delete that.
+        //First check if the movie even exists.
+        Movie.findOneAndDelete({ title: req.body.title }).select('title').exec(function(err, movie) {
+            if(movie === null) {
+                return(next(res.status(404).send({success: false, msg: 'Movie not found.'})));
+            }
+
+            else {
+                res.json({success: true, msg: 'Successfully deleted movie.'});
+            }
+        });
+
+
+    })
+
+    .get(authJwtController.isAuthenticated, function (req, res) {
+        // First check to see if we need to get reviews.
+
+        Movie.find(function(err, movies) {
+            if(err) res.send(err);
+            res.json(movies);
+        })
+    })
+
+    .all(function(req, res) {
+        console.log(req.body);
+        res.status(405).send({success: false, msg: 'Unsupported method.'});
+    });
+
+    router.route('movies/:movieId')
+        //Specific movie ID goes here.
+        //Need extra check for showing reviews
+
     router.route('/reviews')
         .post(authJwtController.isAuthenticated, function(req, res) {
         let utoken = req.headers.authorization;
@@ -128,10 +214,10 @@ router.route('/postjwt')
             }
             else if(something) {
                 let review = new Review();
-                review.name = decoded.username;
+                review.user = decoded.username;
                 review.review = req.body.review;
                 review.rating = req.body.rating;
-                review.mid = req.body.movieId;
+                review.movie = req.body.movieId;
 
                 review.save(function(err) {
                     if(err) {
