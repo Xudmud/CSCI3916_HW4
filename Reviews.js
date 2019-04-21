@@ -13,7 +13,7 @@ var ReviewSchema = new Schema ({
     user: Object,
     rating: {type: Number, min:0, max: 5, required: true},
     review: {type: String, required: true},
-    movie: {type: mongoose.types.ObjectId, required: true},
+    movie: {type: mongoose.Types.ObjectId, required: true},
 });
 
 mongoose.exports = mongoose.model('Review',ReviewSchema);
