@@ -216,7 +216,7 @@ router.route('/postjwt')
             else if(mid) {
                 let review = new Review();
                 review.username = decoded.username;
-                review.user = decoded._id;
+                review.user = decoded.id;
                 review.review = req.body.review;
                 review.rating = req.body.rating;
                 review.movie = req.body.movieId;
