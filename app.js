@@ -122,25 +122,25 @@ router.route('/postjwt')
         //Movie stuff goes here.
         //Need extra check for showing reviews
         .post(authJwtController.isAuthenticated, function (req, res) {
-        console.log(req.body);
-        if(!req.body.title || !req.body.year || req.body.actor.length < 3)
-            res.json({success: false, msg: 'Please include all required fields!'});
-        else {
-            var movieNew = new Movie();
-            movieNew.title = req.body.title;
-            movieNew.year = req.body.year;
-            movieNew.genre = req.body.genre;
-            movieNew.actor = req.body.actor;
+            console.log(req.body);
+            if(!req.body.title || !req.body.year || req.body.actor.length < 3)
+                res.json({success: false, msg: 'Please include all required fields!'});
+            else {
+                var movieNew = new Movie();
+                movieNew.title = req.body.title;
+                movieNew.year = req.body.year;
+                movieNew.genre = req.body.genre;
+                movieNew.actor = req.body.actor;
 
-            //Not checking for duplicates, might be multiple movies with the same title.
-            movieNew.save(function(err) {
-                if(err) {
-                    return(res.send(err));
-                }
-                res.json({success: true, msg: 'Successfully created movie!'})
-            });
-        }
-    })
+                //Not checking for duplicates, might be multiple movies with the same title.
+                movieNew.save(function(err) {
+                    if(err) {
+                        return(res.send(err));
+                    }
+                    res.json({success: true, msg: 'Successfully created movie!'})
+                });
+            }
+        })
 
     .put(authJwtController.isAuthenticated, function (req, res, next) {
         //Validate input. Require all four fields.
@@ -203,12 +203,13 @@ router.route('/postjwt')
         //Need extra check for showing reviews
 
     router.route('/reviews')
-        .post(authJwtController.isAuthenticated, function(req, res) {
+        .post(authJwtController.isAuthenticated, function(req, res, next) {
         let utoken = req.headers.authorization;
         let token = utoken.split(' ');
         let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
         console.log(decoded);
         let mid = req.body.movieId;
+        Review.findOne(decoded.id)
         Movie.findById(mid, function(err, mid) {
             if(err) {
                 res.status(404).send({success: false, message: 'Movie not found.'});
