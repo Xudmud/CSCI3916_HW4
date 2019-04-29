@@ -184,13 +184,28 @@ router.route('/postjwt')
 
     })
 
-    .get(authJwtController.isAuthenticated, function (req, res) {
+    .get(authJwtController.isAuthenticated, function (req, res, next) {
         // First check to see if we need to get reviews.
+        if(req.query && req.query.reviews && req.query.reviews === "true")
+        {
+            Movie.aggregate()
+            .match(req.body)
+            .lookup({from: 'reviews', localField: '_id', foreignField: 'movie' as:'reviews'})
+            .exec(function(err, movie) {
+                if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
+                //average rating stuff probably goes here.
+                return(res.status(200).json({success: true, result: movie}));
+            })
+        }
 
-        Movie.find(function(err, movies) {
+        //Otherwise it's the same as before, return the movie
+        else
+        {
+            Movie.find(function(err, movies) {
             if(err) res.send(err);
             res.json(movies);
-        })
+            })
+        }
     })
 
     .all(function(req, res) {
