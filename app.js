@@ -190,7 +190,7 @@ router.route('/postjwt')
         {
             Movie.aggregate()
             .match(req.body)
-            .lookup({from: 'reviews', localField: '_id', foreignField: 'movie' as:'reviews'})
+            .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
             .exec(function(err, movie) {
                 if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
                 //average rating stuff probably goes here.
