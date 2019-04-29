@@ -238,14 +238,14 @@ router.route('/postjwt')
                 review.movie = req.body.movieId;
                 review.save(function(err) {
                     if(err) {
-                        res.status(400).send({success: false, message: 'Some required fields not entered!'});
+                        return res.status(400).send({success: false, message: 'Some required fields not entered!'});
                     } else {
                         res.json({success: true, message: 'Review added successfully!'});
                     }
                 })
             }
             else {
-                res.json(err);
+                return res.status(404).send({success: false, message: 'Movie not found'});
             }
         })
     })
