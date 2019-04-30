@@ -214,8 +214,34 @@ router.route('/postjwt')
     });
 
     router.route('movies/:movieId')
-        //Specific movie ID goes here.
-        //Need extra check for showing reviews
+        //Should work similarly to the normal /movies GET...
+        .get(authJwtController.isAuthenticated, function(req, res, next) {
+            let mov = req.params.movieId;
+            if(req.query && req.query.reviews && req.query.reviews === "true")
+            {
+                Movie.aggregate()
+                .match(mov)
+                .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
+                .exec(function(err,movie) {
+                    if(err return res.status(400).send({success: false, msg: 'Unknown error.'}));
+                    //Average rating here
+                    return(res.status(200).json(movie));
+                })
+            }
+            else
+            {
+                //Same as normal, call findOne
+                Movie.findById(mov, function(err, movie) {
+                    if(err) res.send(err);
+                    let movieJson = JSON.stringify(movie);
+                    res.json(movie);
+                })
+            }
+        })
+        .all(function(req, res) {
+            console.log(req.body);
+            res.status(405).send({success: false, msg: 'Unsupported method.'});
+        })
 
     router.route('/reviews')
         .post(authJwtController.isAuthenticated, function(req, res, next) {
