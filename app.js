@@ -278,6 +278,24 @@ router.route('/postjwt')
             }
         })
     })
+    .delete(authJwtController.isAuthenticated, function(req, res, next) {
+        let utoken = req.headers.authorization;
+        let token = utoken.split(' ');
+        let decoded = jwt.verify(token[1],process.env.SECRET_KEY);
+        let mid = req.body.movieId;
+        Review.findOneAndDelete({user: decoded.username, movie: mongoose.Types.ObjectId(req.mid)}).select('review').exec(function(err, review) {
+            if(review == null) {
+                return(next(res.json(404).send({success: false, msg: 'No reviews by user found'})))
+            }
+            else {
+                res.json({success: true, msg: 'Review deleted!'});
+            }
+        });
+
+    })
+    /* Code for deleting a review goes here */
+    /* Search for review(s) for the given movie from the logged in user, */
+    /* Delete said reviews from the database */
     .all(function(req, res) {
         console.log(req.body);
         res.status(405).send({succes: false, msg: 'Unsupported method.'});
