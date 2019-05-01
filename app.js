@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken')
 var User = require('./Users');
 var Movie = require('./Movies');
 var Review = require('./Reviews');
+var mongoose = require('mongoose');
 
 //Need the signup/signin POST methods, and a reviews method.
 var app = express();
