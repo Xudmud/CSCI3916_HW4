@@ -219,6 +219,7 @@ router.route('/postjwt')
             let mov = req.params.movieId;
             if(req.query && req.query.reviews && req.query.reviews === "true")
             {
+                console.log("reviews wanted");
                 Movie.aggregate()
                 .match({_id: mongoose.Types.ObjectId(mov)})
                 .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
@@ -231,6 +232,7 @@ router.route('/postjwt')
             else
             {
                 //Same as normal, call findOne
+                console.log("no reviews today");
                 Movie.findById(mov, function(err, movie) {
                     if(err) res.send(err);
                     let movieJson = JSON.stringify(movie);
