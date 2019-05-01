@@ -184,7 +184,7 @@ router.route('/postjwt')
 
     })
 
-    .get(authJwtController.isAuthenticated, function (req, res, next) {
+    .get(authJwtController.isAuthenticated, function (req, res) {
         // First check to see if we need to get reviews.
         if(req.query && req.query.reviews && req.query.reviews === "true")
         {
@@ -213,7 +213,7 @@ router.route('/postjwt')
         res.status(405).send({success: false, msg: 'Unsupported method.'});
     });
 
-    router.route('movies/:movieId')
+    router.route('/movies/:movieId')
         //Should work similarly to the normal /movies GET...
         .get(authJwtController.isAuthenticated, function(req, res, next) {
             let mov = req.params.movieId;
