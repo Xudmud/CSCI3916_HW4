@@ -284,7 +284,7 @@ router.route('/postjwt')
         let decoded = jwt.verify(token[1],process.env.SECRET_KEY);
         let mid = req.body.movieId;
         console.log(req.body);
-        Review.findOneAndDelete({user: decoded.username, movie: mongoose.Types.ObjectId(req.mid)}).select('review').exec(function(err, review) {
+        Review.findOneAndDelete({user: decoded.username, movie: mongoose.Types.ObjectId(mid)}).select('review').exec(function(err, review) {
             if(review == null) {
                 return(res.json(404).send({success: false, msg: 'No reviews by user found'}));
             }
