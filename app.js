@@ -223,7 +223,7 @@ router.route('/postjwt')
                 .match(mov)
                 .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
                 .exec(function(err,movie) {
-                    if(err return res.status(400).send({success: false, msg: 'Unknown error.'}));
+                    if(err) return res.status(400).send({success: false, msg: 'Unknown error.'}));
                     //Average rating here
                     return(res.status(200).json(movie));
                 })
