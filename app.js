@@ -220,7 +220,7 @@ router.route('/postjwt')
             if(req.query && req.query.reviews && req.query.reviews === "true")
             {
                 Movie.aggregate()
-                .match({_id: mongoose.types.objectId(mov)})
+                .match({_id: mongoose.Types.ObjectId(mov)})
                 .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
                 .exec(function(err,movie) {
                     if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
