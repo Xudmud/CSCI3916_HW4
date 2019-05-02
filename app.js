@@ -125,7 +125,7 @@ router.route('/postjwt')
         .post(authJwtController.isAuthenticated, function (req, res) {
             console.log(req.body);
             if(!req.body.title || !req.body.year || req.body.actor.length < 3)
-                res.json({success: false, msg: 'Please include all required fields!'});
+                res.status(400).send({success: false, msg: 'Please include all required fields!'});
             else {
                 var movieNew = new Movie();
                 movieNew.title = req.body.title;
