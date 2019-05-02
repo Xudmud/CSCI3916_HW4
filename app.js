@@ -143,29 +143,38 @@ router.route('/postjwt')
             }
         })
 
-    .put(authJwtController.isAuthenticated, function (req, res, next) {
-        //Validate input. Require all four fields.
-        if(!req.body.title || !req.body.year || !req.body.genre || !req.body.actor) {
-            return(next(res.status(400).send({success: false, msg:'Please include all required fields!'})));
-        }
-        //Double-check length of actor array
-        if(req.body.actor.length < 3)
-            return(next(res.status(400).send({success: false, msg:'Please include at least three actors!'})));
-        Movie.findOneAndUpdate(
-            {"title": req.body.title},
-            {
-                $set: {
-                    "year": req.body.year,
-                    "genre": req.body.genre,
-                    "actor": req.body.actor
+        .put(authJwtController.isAuthenticated, function (req, res, next) {
+            //Validate input. Require all four fields.
+            let suc = false;
+            if(!req.body.title || !req.body.year || !req.body.genre || !req.body.actor) {
+                return(next(res.status(400).send({success: false, msg:'Please include all required fields!'})));
+            }
+            //Double-check length of actor array
+            if(req.body.actor.length < 3)
+                return(next(res.status(400).send({success: false, msg:'Please include at least three actors!'})));
+            Movie.findOneAndUpdate(
+                {"title": req.body.title},
+                {
+                    $set: {
+                        "year": req.body.year,
+                        "genre": req.body.genre,
+                        "actor": req.body.actor
+                    }
+                },
+                {returnOriginal: false, passRawResult: true},
+            ).then(function(r) {
+                if(r == null)
+                {
+                    res.status(404).send({success: false, msg: 'Movie not found.'});
+
                 }
-            },
-            {new: true},
-            (err, data) => {
-                if(err) res.status(404).send({success: false, msg: 'Movie not found.'});
-            });
-            res.json({success: true, msg: 'Movie updated'});
-    })
+                else {
+                    res.json({success: true, msg: 'Movie updated!'});
+                }
+
+            })
+
+            })
 
 
     .delete(authJwtController.isAuthenticated, function (req, res) {
@@ -293,9 +302,6 @@ router.route('/postjwt')
         });
 
     })
-    /* Code for deleting a review goes here */
-    /* Search for review(s) for the given movie from the logged in user, */
-    /* Delete said reviews from the database */
     .all(function(req, res) {
         console.log(req.body);
         res.status(405).send({succes: false, msg: 'Unsupported method.'});
