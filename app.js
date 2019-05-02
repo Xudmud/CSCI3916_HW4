@@ -181,6 +181,7 @@ router.route('/postjwt')
         //Receives: title to be deleted.
         //Weakness: This will find the first instance and delete that.
         //First check if the movie even exists.
+        //Should also delete any reviews associated with the movie.
         Movie.findOneAndDelete({ title: req.body.title }).select('title').exec(function(err, movie) {
             if(movie === null) {
                 return(next(res.status(404).send({success: false, msg: 'Movie not found.'})));
