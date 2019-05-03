@@ -237,7 +237,7 @@ router.route('/postjwt')
                 .exec(function(err,movie) {
                     if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
                     //Average rating here
-                    return(res.status(200).json(movie));
+                    return(res.json(movie));
                 })
             }
             else
