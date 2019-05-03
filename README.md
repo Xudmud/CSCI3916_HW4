@@ -1,7 +1,7 @@
 # CSCI3916_HW4
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/a1f7deb143134af8ed58#?env%5BHW4%5D=W3siZGVzY3JpcHRpb24iOnsiY29udGVudCI6IiIsInR5cGUiOiJ0ZXh0L3BsYWluIn0sInZhbHVlIjoiSldUIGV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpwWkNJNklqVmpZMkkzWmpoalpUSmxPV0kxTURBd05Ea3dZbVkxTlNJc0luVnpaWEp1WVcxbElqb2lVMmxsY25KaE1EZzNJaXdpYVdGMElqb3hOVFUyT0RReE16YzFmUS5PM1BsZ2I2cFVvNzZYWEU4NWt4ZlUxNHQxN1RSeHNlY2FCbFhUM0JIdkY4Iiwia2V5IjoidG9rZW4iLCJlbmFibGVkIjp0cnVlfV0=)  
 
-##Basic list of requests##  
+**Basic list of requests**  
 (Requests are prepopulated in the Postman collection with the correct syntax, and can be modified as needed.)  
 POST Signup - Create a new user.  
 POST sign in - Log in with a user account. Returns a JWT token that saves to an environment variable for future tests.
