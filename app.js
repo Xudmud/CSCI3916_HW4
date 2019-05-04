@@ -220,6 +220,10 @@ router.route('/postjwt')
                         }
                     }
                     movie.sort(function(a,b) {
+                        console.log("Movie a: ");
+                        console.log(a);
+                        console.log("Movie b: ");
+                        console.log(b);
                         return b.avgRating - a.avgRating;
                     })
                 }
