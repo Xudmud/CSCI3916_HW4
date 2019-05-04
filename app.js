@@ -215,6 +215,7 @@ router.route('/postjwt')
                         for(let j = 0; j < movie[i].reviews.length; ++j) {
                             total += movie[i].reviews[j].rating;
                         }
+                        console.log(total);
                         if(movie[i].reviews.length > 0) {
                             movie[i] = Object.assign({}, movie[i],
                             {avgRating: (total/movie[i].reviews.length).toFixed(1)});
