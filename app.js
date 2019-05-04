@@ -213,7 +213,7 @@ router.route('/postjwt')
                         }
                         if(movie[i].reviews.length > 0) {
                             movie[i] = Object.assign({}, movie[i],
-                            {avgRating: (total/movie[j].reviews.length).toFixed(1)});
+                            {avgRating: (total/movie[i].reviews.length).toFixed(1)});
                         }
                     }
                     movie.sort((pre,nex) => {
