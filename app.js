@@ -222,13 +222,13 @@ router.route('/postjwt')
                     }
                     console.log("List before sort: ");
                     console.log(movie);
-                    movie.sort((pre,nex) => {
+                    let smovie = movie.slice().sort((pre,nex) => {
                         console.log(pre.avgRating + " v. " + nex.avgRating);
                         return nex.avgRating-pre.avgRating;
 
                     })
                     console.log("List after sort: ");
-                    console.log(movie);
+                    console.log(smovie);
                 }
                 return(res.json(movie));
             })
