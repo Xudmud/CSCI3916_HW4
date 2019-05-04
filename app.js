@@ -295,9 +295,9 @@ router.route('/postjwt')
         let utoken = req.headers.authorization;
         let token = utoken.split(' ');
         let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
-        console.log(req.headers);
+        //console.log(req.headers);
         console.log(decoded);
-        console.log(JSON.stringify(req.body));
+        console.log(req);
         let mid = req.body.movieId;
         Review.findOne(decoded.id)
         Movie.findById(mid, function(err, mid) {
