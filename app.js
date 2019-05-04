@@ -221,17 +221,13 @@ router.route('/postjwt')
                         }
                     }
                     movie.sort((pre,nex) => {
-                        console.log("--------");
-                        console.log(pre);
-                        console.log(nex);
-                        console.log("--------");
-                        if(pre.avgRating < nex.avgRating)
-                        {
-                            let temp = pre;
-                            pre = nex;
-                            nex = temp;
-                        }
-                        return nex.avgRating - pre.avgRating;
+                        if(nex.avgRating > pre.avgRating)
+                            return 1;
+                        else if(nex.avgRating < pre.avgRating)
+                            return -1;
+                        else
+                            return 0;
+
                     })
                 }
                 return(res.json(movie));
