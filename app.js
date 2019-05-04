@@ -215,9 +215,12 @@ router.route('/postjwt')
                         for(let j = 0; j < movie[i].reviews.length; ++j) {
                             total += movie[i].reviews[j].rating;
                         }
+                        //Add an avgRating member for average rating.
                         if(movie[i].reviews.length > 0) {
                             movie[i].avgRating = (total/movie[i].reviews.length).toFixed(1);
                         }
+                        //Otherwise, set avgRating to 0, as "undefined" causes
+                        //sort to put the item at the front of the array.
                         else {
                             movie[i].avgRating = 0;
                         }
@@ -225,7 +228,7 @@ router.route('/postjwt')
 
                 }
                 movie.sort((a,b) => {
-                    return a.avgRating - b.avgRating;
+                    return b.avgRating - a.avgRating;
                 })
                 return(res.json(movie));
             })
@@ -270,10 +273,11 @@ router.route('/postjwt')
                                 {avgRating: (total/movie[i].reviews.length).toFixed(1)});
                             }
                         }
-                        movie.sort((fir,nex) => {
-                            return nex.avgRating - fir.avgRating;
-                        })
+
                     }
+                    movie.sort((fir,nex) => {
+                        return nex.avgRating - fir.avgRating;
+                    })
                     return(res.json(movie[0]));
                 })
             }
