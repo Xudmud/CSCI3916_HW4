@@ -232,7 +232,7 @@ router.route('/postjwt')
             {
                 console.log("reviews wanted");
                 Movie.aggregate()
-                .match({_id: mongoose.Types.ObjectId(mov)})
+                .findOne({_id: mongoose.Types.ObjectId(mov)})
                 .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
                 .exec(function(err,movie) {
                     if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
