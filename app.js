@@ -220,6 +220,8 @@ router.route('/postjwt')
                             {avgRating: (total/movie[i].reviews.length).toFixed(1)});
                         }
                     }
+                    console.log("List before sort: ");
+                    console.log(movie);
                     movie.sort((pre,nex) => {
                         if(nex.avgRating > pre.avgRating)
                             return 1;
@@ -229,6 +231,8 @@ router.route('/postjwt')
                             return 0;
 
                     })
+                    console.log("List after sort: ");
+                    console.log(movie);
                 }
                 return(res.json(movie));
             })
