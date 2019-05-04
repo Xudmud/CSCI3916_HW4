@@ -221,7 +221,10 @@ router.route('/postjwt')
                         }
                     }
                     movie.sort((pre,nex) => {
-                        console.log("pre rating: " + pre.avgRating + " | nex.avgRating: " + nex.avgRating);
+                        console.log("--------");
+                        console.log(pre);
+                        console.log(nex);
+                        console.log("--------");
                         return nex.avgRating - pre.avgRating;
                     })
                 }
