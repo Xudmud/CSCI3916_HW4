@@ -256,7 +256,7 @@ router.route('/postjwt')
                         for(let i = 0; i < movie.length; i++) {
                             let total = 0;
                             for(let j = 0; j < movie[i].reviews.length; ++j) {
-                                total += movie[o].reviews[j].rating;
+                                total += movie[i].reviews[j].rating;
                             }
                             if(movie[i].reviews.length > 0) {
                                 movie[i] = Object.assign({}, movie[i],
