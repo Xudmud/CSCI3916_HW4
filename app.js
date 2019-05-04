@@ -17,11 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 app.use(cors());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
     next();
-});
+});*/
 var router = express.Router();
 
 router.route('/postjwt')
@@ -296,7 +296,7 @@ router.route('/postjwt')
         let token = utoken.split(' ');
         let decoded = jwt.verify(token[1], process.env.SECRET_KEY);
         console.log(decoded);
-        console.log(req.body);
+        console.log(JSON.stringify(req.body));
         let mid = req.body.movieId;
         Review.findOne(decoded.id)
         Movie.findById(mid, function(err, mid) {
