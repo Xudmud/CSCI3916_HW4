@@ -204,7 +204,22 @@ router.route('/postjwt')
             .lookup({from: 'reviews', localField: '_id', foreignField: 'movie', as: 'reviews'})
             .exec(function(err, movie) {
                 if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
-                //average rating stuff probably goes here.
+                //Average rating
+                if(movie && movie.length > 0) {
+                    for(let i = 0; i < movie.length; ++i) {
+                        let total = 0;
+                        for(let j = 0; j < movie[i].reviews.length; ++j) {
+                            total += movie[i].reviews[j].rating;
+                        }
+                        if(movie[i].reviews.length > 0) {
+                            movie[i] = Object.assign({}, movie[i],
+                            {avgRating: (total/movie[j].reviews.length).toFixed(1)});
+                        }
+                    }
+                    movie.sort((pre,nex) => {
+                        return nex.avgRating - pre.avgRating;
+                    })
+                }
                 return(res.json(movie));
             })
         }
@@ -237,6 +252,21 @@ router.route('/postjwt')
                 .exec(function(err,movie) {
                     if(err) return res.status(400).send({success: false, msg: 'Unknown error.'});
                     //Average rating here
+                    if(movie) {
+                        for(let i = 0; i < movie.length; i++) {
+                            let total = 0;
+                            for(let j = 0; j < movie[i].reviews.length; ++j) {
+                                total += movie[o].reviews[j].rating;
+                            }
+                            if(movie[i].reviews.length > 0) {
+                                movie[i] = Object.assign({}, movie[i],
+                                {avgRating: (total/movie[i].reviews.length).toFixed(1)});
+                            }
+                        }
+                        movie.sort((fir,nex) => {
+                            return nex.avgRating - fir.avgRating;
+                        })
+                    }
                     return(res.json(movie[0]));
                 })
             }
