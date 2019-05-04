@@ -21,4 +21,4 @@ DELETE Delete review - Parses the user from the JWT token and attempts to delete
 
 Known limitations:  
 Multiple reviews can be posted for a movie by the same user. I plan to modify the POST request to either create a new review or update an existing one, depending on if the user has already posted a review or not.  
-At the moment, deleting a movie does not delete its associated reviews.
+At the moment, deleting a movie does not delete its associated reviews, though the reviews can be deleted with the DELETE method on the /reviews route
