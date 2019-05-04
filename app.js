@@ -228,7 +228,7 @@ router.route('/postjwt')
 
                     })
                     console.log("List after sort: ");
-                    console.log(smovie);
+                    console.log(movie);
                 }
                 return(res.json(movie));
             })
