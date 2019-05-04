@@ -225,7 +225,7 @@ router.route('/postjwt')
                         console.log(pre);
                         console.log(nex);
                         console.log("--------");
-                        if(pre.avgRating > nex.avgRating)
+                        if(pre.avgRating < nex.avgRating)
                         {
                             let temp = pre;
                             pre = nex;
