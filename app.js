@@ -220,15 +220,9 @@ router.route('/postjwt')
                             {avgRating: (total/movie[i].reviews.length).toFixed(1)});
                         }
                     }
-                    console.log("List before sort: ");
-                    console.log(movie);
-                    movie.sort((a,b) => {
+                    movie.sort(function(a,b) {
                         return b.avgRating - a.avgRating;
-
                     })
-                    console.log("List after sort: ");
-                    console.log(movie);
-                    movie.reverse(); //See if it reverses okay
                 }
                 return(res.json(movie));
             })
