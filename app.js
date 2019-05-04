@@ -218,6 +218,9 @@ router.route('/postjwt')
                         if(movie[i].reviews.length > 0) {
                             movie[i].avgRating = (total/movie[i].reviews.length).toFixed(1);
                         }
+                        else {
+                            movie[i].avgRating = 0;
+                        }
                     }
 
                 }
