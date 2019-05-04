@@ -230,7 +230,7 @@ router.route('/postjwt')
                     console.log("List after sort: ");
                     console.log(smovie);
                 }
-                return(res.json(movie));
+                return(res.json(smovie));
             })
         }
 
