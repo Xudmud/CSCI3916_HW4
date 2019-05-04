@@ -223,8 +223,7 @@ router.route('/postjwt')
                     console.log("List before sort: ");
                     console.log(movie);
                     let smovie = movie.slice().sort((pre,nex) => {
-                        console.log(pre.avgRating + " v. " + nex.avgRating);
-                        return nex.avgRating-pre.avgRating;
+                        return nex.avgRating - pre.avgRating;
 
                     })
                     console.log("List after sort: ");
@@ -274,6 +273,7 @@ router.route('/postjwt')
                             }
                         }
                         movie.sort((fir,nex) => {
+                            console.log(nex.avgRating-fir.avgRating);
                             return nex.avgRating - fir.avgRating;
                         })
                     }
