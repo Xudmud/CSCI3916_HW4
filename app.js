@@ -219,11 +219,11 @@ router.route('/postjwt')
                             movie[i].avgRating = (total/movie[i].reviews.length).toFixed(1);
                         }
                     }
-                    function sortRat(a,b) {
-                        return b.avgRating - a.avgRating;
-                    }
-                    movie.sort(sortRat);
+
                 }
+                movie.sort((a,b) => {
+                    return a.avgRating - b.avgRating;
+                })
                 return(res.json(movie));
             })
         }
