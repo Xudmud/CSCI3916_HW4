@@ -223,9 +223,10 @@ router.route('/postjwt')
                     console.log("List before sort: ");
                     console.log(movie);
                     movie.sort((pre,nex) => {
-                        if(parseFloat(nex.avgRating) > parseFloat(pre.avgRating))
+                        console.log(pre.avgRating + " v. " + nex.avgRating);
+                        if(nex.avgRating > pre.avgRating)
                             return 1;
-                        else if(parseFloat(nex.avgRating) < parseFloat(pre.avgRating))
+                        else if(nex.avgRating < pre.avgRating)
                             return -1;
                         else
                             return 0;
