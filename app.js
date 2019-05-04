@@ -224,7 +224,7 @@ router.route('/postjwt')
                         return b.avgRating - a.avgRating;
                     })
                 }
-                return(movie);
+                return(res.json(movie));
             })
         }
 
