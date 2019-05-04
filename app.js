@@ -222,9 +222,8 @@ router.route('/postjwt')
                     }
                     console.log("List before sort: ");
                     console.log(movie);
-                    movie.sort((pre,nex) => {
-                        console.log(nex.avgRating-pre.avgRating);
-                        return nex.avgRating - pre.avgRating;
+                    movie.sort((a,b) => {
+                        return b.avgRating - a.avgRating;
 
                     })
                     console.log("List after sort: ");
